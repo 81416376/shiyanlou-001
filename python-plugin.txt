@@ -1,0 +1,5 @@
+pathogen
+jedi-vim
+syntastic
+vim-autoformat
+
