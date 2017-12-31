@@ -3,7 +3,7 @@ import scrapy
 
 class ShiyanlouCoursesSpider(scrapy.Spider):
 
-    name = 'shiyanlou-courses'
+    name = 'shiyanlou-github'
 
     @property
     def start_urls(self):
@@ -13,8 +13,8 @@ class ShiyanlouCoursesSpider(scrapy.Spider):
 
     def parse(self,response):
 
-        for course in response.css('div.user-repositories-list'):
+        for course in response.css('li.public'):
             yield {
-                    'name':course.css('h3 a::text').extract_first(),
-                    'update_time':course.xpath('.//div[contains(@class,"f6 text-gray mt-2")]/text()[2]').re_first('[^\d]*-(\d*)-[^\d]*Z')
+                    'name':course.xpath('.//relative-time/@datetime').re_first("\n\s*(.*)"),
+                    'update_time':course.xpath('.//relative-time/@datetime).extract_first()
                     }
